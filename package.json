@@ -1,0 +1,20 @@
+{
+  "name": "ecom",
+  "version": "1.0.0",
+  "description": "global ecommerce backend for business",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon --env-file=.env src/index.js"
+  },
+  "author": "shivam pandey",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongoose": "^8.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
