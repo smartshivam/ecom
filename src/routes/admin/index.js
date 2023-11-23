@@ -1,9 +1,12 @@
 import { Router } from "express";
-import Auth from "./auth.js";
+import {
+  loginAdmin,
+  registerAdmin,
+} from "../../controllers/user/index.controller.js";
 
 const adminRoutes = Router();
-const adminApiUri = "/api/v1/admin";
 
-adminRoutes.use(adminApiUri, Auth);
+adminRoutes.post("/register", registerAdmin);
 
+adminRoutes.post("/login", loginAdmin);
 export default adminRoutes;

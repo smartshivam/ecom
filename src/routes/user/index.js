@@ -1,7 +1,6 @@
 import { Router } from "express";
 
-const router = Router();
+const userRoutes = Router();
 
-const userApiUri = "/api/v1/user";
 
-router.use()
+export default userRoutes;
