@@ -50,4 +50,8 @@ const getCategoryDetail = asyncHandler(async (req, res) => {
     );
 });
 
+
+const deleteCategory = asyncHandler(async(req,res)=>{
+    
+})
 export { addCategory, getAllCategories, getCategoryDetail };
