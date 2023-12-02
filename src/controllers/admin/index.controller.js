@@ -4,9 +4,9 @@ import { ApiError } from "../../utils/ApiError.js";
 import { ApiResponse } from "../../utils/ApiResponse.js";
 import validator from "validator";
 
-// register controller for User
+// register controller for admin
 
-const registerUser = asyncHandler(async (req, res) => {
+const registerAdmin = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
   if (
@@ -35,14 +35,16 @@ const registerUser = asyncHandler(async (req, res) => {
     throw new ApiError(409, "Email is already registered");
   }
 
-  const newUser = new User({ email, password, userType: "User" });
+  const newUser = new User({ email, password, userType: "Admin" });
   await newUser.save();
-  res.status(201).json(new ApiResponse(200, null, "Registration successfully"));
+  res
+    .status(201)
+    .json(new ApiResponse(200, null, "Admin created successfully"));
 });
 
-// login controller for User
+// login controller for admin
 
-const loginUser = asyncHandler(async (req, res) => {
+const loginAdmin = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
   if (
@@ -59,6 +61,10 @@ const loginUser = asyncHandler(async (req, res) => {
   if (!existedUser) {
     throw new ApiError(401, "Invalid credentials");
   }
+  //   checking user is admin or not
+  if (existedUser.userType !== "Admin") {
+    throw new ApiError(400, "Invalid credentials");
+  }
 
   const isPasswordValid = await existedUser.isPasswordCorrect(password);
 
@@ -74,4 +80,4 @@ const loginUser = asyncHandler(async (req, res) => {
   res.status(200).json(new ApiResponse(200, userDetail, "Login sucessfully"));
 });
 
-export { registerUser, loginUser };
+export { registerAdmin, loginAdmin };
