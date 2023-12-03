@@ -3,15 +3,12 @@ import {
   loginAdmin,
   registerAdmin,
 } from "../../controllers/admin/index.controller.js";
-import { addCategory, getAllCategories, getCategoryDetail } from "../../controllers/admin/category.controller.js";
+import { categoriesRoutes } from "./categories.route.js";
 
 const adminRoutes = Router();
 
 adminRoutes.post("/register", registerAdmin);
 adminRoutes.post("/login", loginAdmin);
-adminRoutes.post("/categories", addCategory);
-adminRoutes.get("/categories", getAllCategories);
-adminRoutes.get("/categories/:id", getCategoryDetail);
-
+adminRoutes.use("/categories", categoriesRoutes);
 
 export default adminRoutes;
