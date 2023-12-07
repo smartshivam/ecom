@@ -71,6 +71,7 @@ const loginAdmin = asyncHandler(async (req, res) => {
   if (!isPasswordValid) {
     throw new ApiError(401, "Invalid credentials");
   }
+  
   //   const { passwo{rd: _, ...userDataWithoutPassword } = existedUser.toObject();
   const userDetail = {
     _id: existedUser._id,

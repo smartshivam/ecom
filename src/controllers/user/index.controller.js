@@ -66,10 +66,27 @@ const loginUser = asyncHandler(async (req, res) => {
     throw new ApiError(401, "Invalid credentials");
   }
   //   const { passwo{rd: _, ...userDataWithoutPassword } = existedUser.toObject();
+
+  // generating access token and refresh token
+
+  let accessToken = existedUser.generateAccessToken();
+  let refreshToken = existedUser.generateRefreshToken();
+  let newrefreshTokens = [...existedUser.refreshToken, refreshToken];
+
+  existedUser.accessToken = accessToken;
+  existedUser.refreshToken = newrefreshTokens;
+  await existedUser.save();
   const userDetail = {
     _id: existedUser._id,
     email: existedUser.email,
+    token: accessToken,
   };
+  res.cookie("jwt", refreshToken, {
+    httpOnly: true,
+    secure: true,
+    sameSite: "None",
+    maxAge: 1000 * 60 * 60 * 24 * 10,
+  });
 
   res.status(200).json(new ApiResponse(200, userDetail, "Login sucessfully"));
 });

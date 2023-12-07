@@ -28,6 +28,11 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: [true, "User Type is required"],
     },
+    accessToken: {
+      type: String,
+    },
+    refreshToken:[String]
+
   },
   {
     timestamps: true,
@@ -54,6 +59,18 @@ userSchema.methods.generateAccessToken = function () {
     process.env.ACCESS_TOKEN_SECRET,
     {
       expiresIn: process.env.ACCESS_TOKEN_EXPIRY,
+    }
+  );
+};
+
+userSchema.methods.generateRefreshToken = function () {
+  return Jwt.sign(
+    {
+      _id: this._id,
+    },
+    process.env.REFRESH_TOKEN_SECRET,
+    {
+      expiresIn: process.env.REFRESH_TOKEN_EXPIRY,
     }
   );
 };
